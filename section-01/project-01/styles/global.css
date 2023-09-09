@@ -1,0 +1,40 @@
+:root {
+	--bg: #fafafa;
+	--text: #09090b;
+	--border: #e4e4e7;
+	--borderSelected: #09090b;
+	--button: #e4e4e7;
+	--buttonDisabled: #f4f4f5;
+}
+
+.dark {
+	--bg: #09090b;
+	--text: #fafafa;
+	--border: #27272a;
+	--borderSelected: #fafafa;
+	--button: #27272a;
+	--buttonDisabled: #f4f4f5;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-family: 'Open Sans', sans-serif;
+	background-color: var(--bg);
+	color: var(--text);
+	min-height: 100vh;
+	padding: 2rem;
+}
+
+@media (max-width: 1200px) {
+	body {
+		padding: 1.5rem;
+	}
+}

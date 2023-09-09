@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="styles/global.css">
+	<link rel="stylesheet" href="styles/main.css">
+	<link rel="stylesheet" href="styles/products.css">
+	<link rel="stylesheet" href="styles/table.css">
+	<title>Self Service Order</title>
+</head>
+
+<body id="app">
+	<main class="main" :class="total() > 0 && 'col'">
+		<section class="main__section">
+			<h4 class="main__title">Selecione os produtos</h4>
+
+			<div class="products">
+				<div class="product" v-for="product in products" @click="product.active = !product.active"
+					:class="{selected : product.active}">
+					<div class="product__photo-title">
+						<img :src="product.photo" class="product__photo">
+						<h2 class="product__title">{{ product.name }}</h2>
+					</div>
+
+					<div class="product__details">
+						<div class="product__quantity" v-if="product.active">
+							<button class="product__button" @click.stop="product.quantity--"
+								:disabled="product.quantity <= 1">-</button>
+							<span>{{ product.quantity }}</span>
+							<button class="product__button" @click.stop="product.quantity++">+</button>
+						</div>
+						<span class="product__price">${{ product.price }}</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="main__section" v-if="total() > 0">
+			<h4 class="main__title">Resumo do pedido</h4>
+
+			<table class="table">
+				<thead class="table__head">
+					<tr>
+						<th>Item</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+
+				<tbody class="table__body">
+					<tr v-for="product in products">
+						<template v-if="product.active">
+							<td>{{ `${product.quantity}x ${product.name}` }}</td>
+							<td>{{ `$${(product.price * product.quantity).toFixed(2)}` }}</td>
+						</template>
+					</tr>
+
+					<tr>
+						<th>Total</th>
+						<th>${{ total() }}</th>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+	</main>
+
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="scripts.js"></script>
+</body>
+
+</html>
